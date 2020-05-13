@@ -105,7 +105,3 @@ RUN  cd /opt && tar -xvzf Kaldi_NL.tar.gz && rm Kaldi_NL.tar.gz && \
 COPY worker.py master_server.py /opt/kaldi-gstreamer-server/kaldigstserver/
 
 
-FROM databricksruntime/standard:latest
-
-RUN /databricks/conda/envs/dcs-minimal/bin/pip pandas
-RUN /databricks/conda/envs/dcs-minimal/bin/pip urllib3
