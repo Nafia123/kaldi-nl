@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:buster
 MAINTAINER Laurens van der Werff <laurensw75@gmail.com>
 
 # Most of this Docker (the hard part) was taken directly from Eduardo Silva's kaldi-gstreamer-server docker.
