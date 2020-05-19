@@ -1,5 +1,5 @@
 FROM debian:buster
-MAINTAINER Laurens van der Werff <laurensw75@gmail.com>
+MAINTAINER Naw Singh <naw_123@hotmail.nl>
 
 # Most of this Docker (the hard part) was taken directly from Eduardo Silva's kaldi-gstreamer-server docker.
 # It has some additional stuff for my Dutch models and tools.
@@ -55,10 +55,10 @@ RUN apt-get install -y \
     default-jre \
     unzip
 
-RUN git clone https://github.com/kaldi-asr/kaldi && \
-    cd /opt/kaldi/tools && \
-    make -j${NUM_BUILD_CORES} && \
-    ./install_portaudio.sh
+RUN git clone https://github.com/kaldi-asr/kaldi
+RUN cd /opt/kaldi/tools
+RUN make -j 4
+RUN ./install_portaudio.sh
     
 RUN cd /opt/kaldi/tools && \
     extras/install_mkl.sh
