@@ -56,14 +56,14 @@ RUN apt-get install -y \
     default-jre \
     unzip
 
-RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git /opt/kaldi && \
-RUN cd /opt/kaldi && \
-RUN cd /opt/kaldi/tools && \
-RUN ./extras/install_mkl.sh && \
-RUN make -j 4 && \
-RUN cd /opt/kaldi/src && \
-RUN ./configure --shared && \
-RUN make depend -j 4 && \
+RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git /opt/kaldi
+RUN cd /opt/kaldi
+RUN cd /opt/kaldi/tools
+RUN ./extras/install_mkl.sh
+RUN make -j 4
+RUN cd /opt/kaldi/src
+RUN ./configure --shared
+RUN make depend -j 4
 RUN make -j 4
     
 
