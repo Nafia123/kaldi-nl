@@ -55,7 +55,7 @@ RUN apt-get install -y \
     default-jre \
     unzip
 
-RUN	git clone https://github.com/kaldi-asr/kaldi
+RUN	git clone https://github.com/kaldi-asr/kaldi.git
 RUN	cd /opt/kaldi/tools
 RUN	make -j${NUM_BUILD_CORES}
 RUN	./install_portaudio.sh
