@@ -44,7 +44,7 @@ WORKDIR /opt
 RUN wget http://www.digip.org/jansson/releases/jansson-2.7.tar.bz2 && \
     bunzip2 -c jansson-2.7.tar.bz2 | tar xf -  && \
     cd jansson-2.7 && \
-    ./configure && make && make check &&  make install && \
+    ./configure && make all&& make check &&  make install && \
     echo "/usr/local/lib" >> /etc/ld.so.conf.d/jansson.conf && ldconfig && \
     rm /opt/jansson-2.7.tar.bz2 && rm -rf /opt/jansson-2.7
 
@@ -55,11 +55,11 @@ RUN apt-get install -y \
     default-jre \
     unzip
 
-RUN git clone https://github.com/kaldi-asr/kaldi
-RUN cd /opt/kaldi/tools
-RUN ./configure
-RUN make -j${NUM_BUILD_CORES}
-RUN ./install_portaudio.sh
+RUN	git clone https://github.com/kaldi-asr/kaldi
+RUN	cd /opt/kaldi/tools
+RUN	./configure
+RUN	make -j${NUM_BUILD_CORES}
+RUN	./install_portaudio.sh
     
 RUN cd /opt/kaldi/tools && \
     extras/install_mkl.sh
