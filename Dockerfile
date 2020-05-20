@@ -57,7 +57,6 @@ RUN apt-get install -y \
 
 RUN	git clone https://github.com/kaldi-asr/kaldi
 RUN	cd /opt/kaldi/tools
-RUN	./configure
 RUN	make -j${NUM_BUILD_CORES}
 RUN	./install_portaudio.sh
     
