@@ -57,14 +57,14 @@ RUN apt-get install -y \
     unzip
 
 RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git /opt/kaldi && \
-    cd /opt/kaldi && \
-    cd /opt/kaldi/tools && \
-    ./extras/install_mkl.sh && \
-    make -j $(nproc) && \
-    cd /opt/kaldi/src && \
-    ./configure --shared && \
-    make depend -j $(nproc) && \
-    make -j $(nproc)
+RUN cd /opt/kaldi && \
+RUN cd /opt/kaldi/tools && \
+RUN ./extras/install_mkl.sh && \
+RUN make -j 4) && \
+RUN cd /opt/kaldi/src && \
+RUN ./configure --shared && \
+RUN make depend -j $(nproc) && \
+RUN make -j 4
     
 
 # RUN cd /opt/kaldi/src && ./configure --shared --mathlib=OPENBLAS && \
