@@ -4,7 +4,7 @@ MAINTAINER Naw Singh <naw_123@hotmail.nl>
 # Most of this Docker (the hard part) was taken directly from Eduardo Silva's kaldi-gstreamer-server docker.
 # It has some additional stuff for my Dutch models and tools.
 
-ARG NUM_BUILD_CORES=4
+ARG NUM_BUILD_CORES=2
 ENV NUM_BUILD_CORES ${NUM_BUILD_CORES}
 
 RUN apt-get update && apt-get install -y  \
@@ -60,11 +60,11 @@ RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git /opt/kaldi && \
 	cd /opt/kaldi && \
 	cd /opt/kaldi/tools && \
 	./extras/install_mkl.sh && \
-	make -j 4 && \
+	make -j 2 && \
 	cd /opt/kaldi/src && \
 	./configure --shared && \
-	make depend -j 4 && \
-	make -j 4
+	make depend -j 2 && \
+	make -j 2
     
 
 # RUN cd /opt/kaldi/src && ./configure --shared --mathlib=OPENBLAS && \
