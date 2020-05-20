@@ -45,7 +45,7 @@ WORKDIR /opt
 RUN wget http://www.digip.org/jansson/releases/jansson-2.7.tar.bz2 && \
     bunzip2 -c jansson-2.7.tar.bz2 | tar xf -  && \
     cd jansson-2.7 && \
-    ./configure && make all && make check &&  make install && \
+    ./configure && make && make check &&  make install && \
     echo "/usr/local/lib" >> /etc/ld.so.conf.d/jansson.conf && ldconfig && \
     rm /opt/jansson-2.7.tar.bz2 && rm -rf /opt/jansson-2.7
 
@@ -60,10 +60,10 @@ RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git /opt/kaldi && \
 RUN cd /opt/kaldi && \
 RUN cd /opt/kaldi/tools && \
 RUN ./extras/install_mkl.sh && \
-RUN make -j 4) && \
+RUN make -j 4 && \
 RUN cd /opt/kaldi/src && \
 RUN ./configure --shared && \
-RUN make depend -j $(nproc) && \
+RUN make depend -j 4 && \
 RUN make -j 4
     
 
