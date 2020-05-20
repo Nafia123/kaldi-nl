@@ -55,13 +55,16 @@ RUN apt-get install -y \
     default-jre \
     unzip
 
-RUN	git clone https://github.com/kaldi-asr/kaldi.git
-RUN	cd /opt/kaldi/tools
-RUN	make -j${NUM_BUILD_CORES}
-RUN	./install_portaudio.sh
+RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git /opt/kaldi && \
+    cd /opt/kaldi && \
+    cd /opt/kaldi/tools && \
+    ./extras/install_mkl.sh && \
+    make -j ${NUM_BUILD_CORES} && \
+    cd /opt/kaldi/src && \
+    ./configure --shared && \
+    make depend -j ${NUM_BUILD_CORES} && \
+    make -j ${NUM_BUILD_CORES}
     
-RUN cd /opt/kaldi/tools && \
-    extras/install_mkl.sh
 
 # RUN cd /opt/kaldi/src && ./configure --shared --mathlib=OPENBLAS && \
  
