@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y  \
     libgstreamer1.0-dev \
     libtool-bin \
     make \
+    portaudio19-dev \
     python2.7 \
     python3 \
     python-pip \
@@ -56,7 +57,7 @@ RUN apt-get install -y \
     default-jre \
     unzip
 
-RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git /opt/kaldi && \
+RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git && \
 	cd /opt/kaldi && \
 	cd /opt/kaldi/tools && \
 	./extras/install_mkl.sh && \
@@ -71,9 +72,9 @@ RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git /opt/kaldi && \
  
 RUN cd /opt/kaldi/src && ./configure --shared && \
     sed -i '/-g # -O0 -DKALDI_PARANOID/c\-O3 -DNDEBUG' kaldi.mk && \
-    make depend && make -j${NUM_BUILD_CORES} && \
-    cd /opt/kaldi/src/online && make depend && make -j${NUM_BUILD_CORES} && \
-    cd /opt/kaldi/src/gst-plugin && make depend && make -j${NUM_BUILD_CORES}
+    make depend && make -j 1 && \
+    cd /opt/kaldi/src/online && make depend && make -j 1 && \
+    cd /opt/kaldi/src/gst-plugin && make depend && make -j 1
 
 RUN cd /opt && \
     git clone https://github.com/alumae/gst-kaldi-nnet2-online.git && \
