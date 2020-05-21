@@ -44,8 +44,6 @@ RUN apt-get update && apt-get install -y  \
 WORKDIR /opt
 
 
-RUN cd /portaudio && ./configure && make
-RUN cd /portaudio && make install
 
 RUN wget http://www.digip.org/jansson/releases/jansson-2.7.tar.bz2 && \
     bunzip2 -c jansson-2.7.tar.bz2 | tar xf -  && \
