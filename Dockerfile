@@ -37,9 +37,11 @@ RUN apt-get update && apt-get install -y  \
     zlib1g-dev && \
     apt-get clean autoclean && \
     apt-get autoremove -y && \
+    pip install --upgrade pip && \
     pip install ws4py==0.3.2 && \
     pip install tornado && \
     pip install pandas && \
+    pip install urllib3 && \
     ln -s /usr/bin/python2.7 /usr/bin/python ; ln -s -f bash /bin/sh
 
 WORKDIR /opt
