@@ -59,24 +59,21 @@ RUN apt-get install -y \
     default-jre \
     unzip
 
-RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git && \
-	cd /opt/kaldi && \
-	cd /opt/kaldi/tools && \
-	./extras/install_mkl.sh && \
-	make -j 4 && \
-	cd /opt/kaldi/src && \
-	./configure --shared && \
-	make depend -j 4 && \
-	make -4 1
+RUN git clone https://github.com/kaldi-asr/kaldi && \
+    cd /opt/kaldi/tools && \
+    make -j 3 && \
+    ./install_portaudio.sh
     
+RUN cd /opt/kaldi/tools && \
+    extras/install_mkl.sh
 
 # RUN cd /opt/kaldi/src && ./configure --shared --mathlib=OPENBLAS && \
  
 RUN cd /opt/kaldi/src && ./configure --shared && \
     sed -i '/-g # -O0 -DKALDI_PARANOID/c\-O3 -DNDEBUG' kaldi.mk && \
-    make depend && make -j 4 && \
-    cd /opt/kaldi/src/online && make depend && make -j 4 && \
-    cd /opt/kaldi/src/gst-plugin && make depend && make -j 4
+    make depend && make -j 3 && \
+    cd /opt/kaldi/src/online && make depend && make -j 3 && \
+    cd /opt/kaldi/src/gst-plugin && make depend && make -j 3
 
 RUN cd /opt && \
     git clone https://github.com/alumae/gst-kaldi-nnet2-online.git && \
