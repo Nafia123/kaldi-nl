@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM databricksruntime/standard:latest
 MAINTAINER Naw Singh <naw_123@hotmail.nl>
 
 # Most of this Docker (the hard part) was taken directly from Eduardo Silva's kaldi-gstreamer-server docker.
@@ -108,8 +108,3 @@ RUN  cd /opt && tar -xvzf Kaldi_NL.tar.gz && rm Kaldi_NL.tar.gz && \
      cd /opt/Kaldi_NL && ln -s /opt/kaldi/egs/wsj/s5/utils utils && ln -s /opt/kaldi/egs/wsj/s5/steps steps
 
 COPY worker.py master_server.py /opt/kaldi-gstreamer-server/kaldigstserver/
-
-FROM databricksruntime/standard:latest
-
-RUN /databricks/conda/envs/dcs-minimal/bin/pip pandas
-RUN /databricks/conda/envs/dcs-minimal/bin/pip urllib3
