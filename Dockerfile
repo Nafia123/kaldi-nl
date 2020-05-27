@@ -4,7 +4,7 @@ MAINTAINER Naw Singh <naw_123@hotmail.nl>
 # Most of this Docker (the hard part) was taken directly from Eduardo Silva's kaldi-gstreamer-server docker.
 # It has some additional stuff for my Dutch models and tools.
 
-ARG NUM_BUILD_CORES=1
+ARG NUM_BUILD_CORES=4
 ENV NUM_BUILD_CORES ${NUM_BUILD_CORES}
 
 RUN apt-get update && apt-get install -y  \
@@ -63,20 +63,20 @@ RUN git clone --depth 1 https://github.com/kaldi-asr/kaldi.git && \
 	cd /opt/kaldi && \
 	cd /opt/kaldi/tools && \
 	./extras/install_mkl.sh && \
-	make -j 1 && \
+	make -j 4 && \
 	cd /opt/kaldi/src && \
 	./configure --shared && \
-	make depend -j 1 && \
-	make -j 1
+	make depend -j 4 && \
+	make -4 1
     
 
 # RUN cd /opt/kaldi/src && ./configure --shared --mathlib=OPENBLAS && \
  
 RUN cd /opt/kaldi/src && ./configure --shared && \
     sed -i '/-g # -O0 -DKALDI_PARANOID/c\-O3 -DNDEBUG' kaldi.mk && \
-    make depend && make -j 1 && \
-    cd /opt/kaldi/src/online && make depend && make -j 1 && \
-    cd /opt/kaldi/src/gst-plugin && make depend && make -j 1
+    make depend && make -j 4 && \
+    cd /opt/kaldi/src/online && make depend && make -j 4 && \
+    cd /opt/kaldi/src/gst-plugin && make depend && make -j 4
 
 RUN cd /opt && \
     git clone https://github.com/alumae/gst-kaldi-nnet2-online.git && \
